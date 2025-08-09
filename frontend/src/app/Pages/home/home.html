@@ -1,0 +1,104 @@
+<!-- Contenedor de página -->
+<div class="min-h-screen bg-gray-50 flex flex-col">
+  <!-- Header -->
+  <header class="border-b bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-xl bg-indigo-600"></div>
+        <span class="font-semibold text-lg">WordColor</span>
+      </div>
+
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-gray-600">
+        <a class="hover:text-gray-900" href="#">Cómo funciona</a>
+        <a class="hover:text-gray-900" href="#">Precios</a> 
+        <a class="hover:text-gray-900" href="#">Ayuda</a>
+      </nav>
+      <button class="sm:hidden inline-flex items-center rounded-lg p-2 hover:bg-gray-100" aria-label="menu">
+        <!-- icono hamburguesa -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1">
+    <section class="mx-auto max-w-6xl px-4 py-8 md:py-12">
+      <!-- Hero -->
+      <div class="text-center mb-8 md:mb-12">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+          Pega o escribe <span class="text-indigo-600">texto en inglés</span>
+        </h1>
+        <p class="mt-3 text-gray-600 max-w-2xl mx-auto">
+          Analiza y practica tu reading. Solo diseño UI: sin lógica, sin peticiones.
+        </p>
+      </div>
+
+      <!-- Grid principal -->
+      <div class="grid grid-cols-1">
+        <!-- Columna izquierda (entrada) -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-2xl shadow-sm border p-4 sm:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <label for="english-input" class="font-medium text-gray-900">
+                Texto en inglés
+              </label>
+              <span class="text-xs text-gray-500">Máx. 5,000 caracteres</span>
+            </div>
+
+            <!-- Área de texto -->
+            <div class="relative">
+              <textarea
+                id="english-input"
+                class="w-full h-52 sm:h-64 md:h-72 resize-y rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500
+                       bg-gray-50/60 placeholder-gray-400 p-4 md:p-5"
+                placeholder="Escribe o pega aquí tu texto en inglés..."
+                aria-label="English text input"></textarea>
+
+              <!-- contador (estático visual) -->
+              <div class="absolute bottom-2 right-3 text-xs text-gray-500 select-none">
+                0 / 5000
+              </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="mt-4 flex flex-col sm:flex-row gap-3">
+              <button
+                class="inline-flex justify-center items-center rounded-xl border px-4 py-2.5 text-sm font-medium
+                       text-gray-700 bg-white hover:bg-gray-50 border-gray-200">
+                Pegar
+              </button>
+              <button
+                class="inline-flex justify-center items-center rounded-xl border px-4 py-2.5 text-sm font-medium
+                       text-gray-700 bg-white hover:bg-gray-50 border-gray-200">
+                Limpiar
+              </button>
+              <div class="sm:ml-auto flex gap-3">
+                <button
+                  class="inline-flex justify-center items-center rounded-xl px-4 py-2.5 text-sm font-medium
+                         bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm">
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-gray-500 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+      <p>© 2025 WordColor. Todos los derechos reservados.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-gray-700">Privacidad</a>
+        <a href="#" class="hover:text-gray-700">Términos</a>
+        <a href="#" class="hover:text-gray-700">Contacto</a>
+      </div>
+    </div>
+  </footer>
+</div>
