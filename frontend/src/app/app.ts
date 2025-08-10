@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Reader } from './Pages/reader/reader';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Reader],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
