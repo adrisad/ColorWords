@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Estado, Task } from "../../generated/prisma";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 const prisma = new PrismaClient();
 interface EditTaskInput{
@@ -38,10 +39,23 @@ export class taskService {
             throw e;
         }
     }
-    deleteTask() {
-
+    async deleteTask(id: number): Promise<Task> {
+        if (!id || id <= 0) throw new BadRequestException('Id inválido.');
+        try {
+            return await prisma.task.delete({ where: { id } });
+        } catch (e: any) {
+            if (e.code === 'P2025') throw new NotFoundException(`Task con id ${id} no existe.`);
+            throw e;
+        }
     }
-    getTask(){
-        
+    async getTaskById(id: number): Promise<Task> {
+        if (!id || id <= 0) throw new Error('Id inválido.');
+        const task = await prisma.task.findUnique({ where: { id } });
+        if (!task) throw new Error(`Task ${id} no existe.`);
+        return task;
+    }
+
+    async getAllTasks(): Promise<Task[]> {
+        return prisma.task.findMany({ orderBy: { id: 'asc' } });
     }
 }
