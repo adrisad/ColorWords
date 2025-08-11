@@ -58,4 +58,7 @@ export class wordService {
     async getAllWords(): Promise<Word[]> {
         return prisma.task.findMany({ orderBy: { id: 'asc' } });
     }
+    isWordAlreadyCreated(){
+        
+    }
 }
