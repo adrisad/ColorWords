@@ -17,7 +17,7 @@ enum Estado {
   Maestria
 }
 
-model Task {
+model Word {
   id        Int      @id @default(autoincrement())
   texto     String 
   estado    Estado

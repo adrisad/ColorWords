@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { Estado, Task } from "../../generated/prisma";
+import { Estado, Word } from "../../generated/prisma";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 const prisma = new PrismaClient();
-interface EditTaskInput{
+interface EditWordInput{
     texto?: string;
     estado?: Estado;
 }
-export class taskService {
-    async createTask(texto: string, estado: Estado = Estado.Nueva): Promise<Task> {
+export class wordService {
+    async createWord(texto: string, estado: Estado = Estado.Nueva): Promise<Word> {
         if (!texto || !texto.trim()) {
             throw new Error('El texto es obligatorio.');
         }
@@ -20,7 +20,7 @@ export class taskService {
         });
         return task;
     }
-    async editTask(id: number, input: EditTaskInput): Promise<Task> {
+    async editWord(id: number, input: EditWordInput): Promise<Word> {
         if (!id || id <= 0) throw new Error('Id inválido.');
         if (!input || (input.texto == null && input.estado == null)) {throw new Error('Nada para actualizar.');}
 
@@ -39,7 +39,7 @@ export class taskService {
             throw e;
         }
     }
-    async deleteTask(id: number): Promise<Task> {
+    async deleteWord(id: number): Promise<Word> {
         if (!id || id <= 0) throw new BadRequestException('Id inválido.');
         try {
             return await prisma.task.delete({ where: { id } });
@@ -48,14 +48,14 @@ export class taskService {
             throw e;
         }
     }
-    async getTaskById(id: number): Promise<Task> {
+    async getWordById(id: number): Promise<Word> {
         if (!id || id <= 0) throw new Error('Id inválido.');
         const task = await prisma.task.findUnique({ where: { id } });
         if (!task) throw new Error(`Task ${id} no existe.`);
         return task;
     }
 
-    async getAllTasks(): Promise<Task[]> {
+    async getAllWords(): Promise<Word[]> {
         return prisma.task.findMany({ orderBy: { id: 'asc' } });
     }
 }
