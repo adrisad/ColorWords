@@ -69,7 +69,16 @@ export class wordService {
     async getAllWords(): Promise<Word[]> {
         return prisma.word.findMany({ orderBy: { id: 'asc' } });
     }
-    isWordAlreadyCreated(){
-
+    async isWordAlreadyCreated(texto: string){
+        const normalizado = texto.trim();
+        const res = await prisma.word.findFirst({
+            where:{
+                texto:{
+                    equals: normalizado,
+                    mode: 'insensitive'
+                }
+            }
+        })
+        return res!=null
     }
 }
