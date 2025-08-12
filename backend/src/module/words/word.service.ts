@@ -12,13 +12,24 @@ export class wordService {
         if (!texto || !texto.trim()) {
             throw new Error('El texto es obligatorio.');
         }
-        const task = await prisma.task.create({
+        const cleanText = texto.trim();
+        const existingWord = await prisma.word.findFirst({
+            where: {
+                texto: {
+                    equals: cleanText,
+                    mode: 'insensitive',
+                },
+            },
+        });
+        if (existingWord) {
+            throw new Error(`La palabra "${cleanText}" ya existe.`);
+        }
+        return prisma.word.create({
             data: {
-                texto: texto.trim(),
+                texto: cleanText,
                 estado,
             },
         });
-        return task;
     }
     async editWord(id: number, input: EditWordInput): Promise<Word> {
         if (!id || id <= 0) throw new Error('Id inválido.');
@@ -33,7 +44,7 @@ export class wordService {
         if (input.estado != null) data.estado = input.estado;
 
         try {
-            return await prisma.task.update({ where: { id }, data });
+            return await prisma.word.update({ where: { id }, data });
         } catch (e: any) {
             if (e.code === 'P2025') throw new Error(`Task ${id} no existe.`);
             throw e;
@@ -42,7 +53,7 @@ export class wordService {
     async deleteWord(id: number): Promise<Word> {
         if (!id || id <= 0) throw new BadRequestException('Id inválido.');
         try {
-            return await prisma.task.delete({ where: { id } });
+            return await prisma.word.delete({ where: { id } });
         } catch (e: any) {
             if (e.code === 'P2025') throw new NotFoundException(`Task con id ${id} no existe.`);
             throw e;
@@ -50,15 +61,15 @@ export class wordService {
     }
     async getWordById(id: number): Promise<Word> {
         if (!id || id <= 0) throw new Error('Id inválido.');
-        const task = await prisma.task.findUnique({ where: { id } });
+        const task = await prisma.word.findUnique({ where: { id } });
         if (!task) throw new Error(`Task ${id} no existe.`);
         return task;
     }
 
     async getAllWords(): Promise<Word[]> {
-        return prisma.task.findMany({ orderBy: { id: 'asc' } });
+        return prisma.word.findMany({ orderBy: { id: 'asc' } });
     }
     isWordAlreadyCreated(){
-        
+
     }
 }
