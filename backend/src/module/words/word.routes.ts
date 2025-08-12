@@ -7,6 +7,7 @@ const Service = new wordService();
 const Controller = new WordController(Service);
 
 routerWord.post('/', (req, res) => Controller.createNewWord(req, res));
-routerWord.get('/', (req, res) => Controller.getByAll(req, res));
+routerWord.get('/all', (req, res) => Controller.getByAll(req, res));
+routerWord
 
 export default routerWord;
