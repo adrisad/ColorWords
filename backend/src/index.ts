@@ -1,17 +1,11 @@
-// src/index.ts
-import express, { Application, Request, Response } from 'express';
+import express, {json, Application, Request, Response } from 'express';
 import routerWord from './module/words/word.routes';
-
+import cors from 'cors';
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para parsear JSON
-app.use(express.json());
-app.get('/', (req: Request, res: Response) => {
-  res.send('Servidor Express con TypeScript funcionando 🚀');
-});
-
-app.use('/words',routerWord);
+app.use(json());
+app.use('/api/words',routerWord);
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);

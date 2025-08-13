@@ -1,13 +1,16 @@
-import { Router } from 'express';
+// En tu archivo de rutas
+import express from 'express';
 import { WordController } from './word.controller';
 import { wordService } from './word.service';
 
-const routerWord = Router();
-const Service = new wordService();
-const Controller = new WordController(Service);
+const router = express.Router();
 
-routerWord.post('/', (req, res) => Controller.createNewWord(req, res));
-routerWord.get('/all', (req, res) => Controller.getByAll(req, res));
-routerWord
+const wordServiceInstance = new wordService();
+const wordController = new WordController(wordServiceInstance);
 
-export default routerWord;
+router.post('/', wordController.createNewWord.bind(wordController));
+router.get('/', wordController.getByAll.bind(wordController));
+router.put('/:id', wordController.editarWord.bind(wordController));
+router.delete('/:id', wordController.deleteOfWord.bind(wordController));
+
+export default router;
