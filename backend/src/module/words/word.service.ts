@@ -51,14 +51,9 @@ export class wordService {
         }
     }
     async deleteWord(id: number): Promise<Word> {
-        if (!id || id <= 0) throw new BadRequestException('Id inválido.');
-        try {
-            return await prisma.word.delete({ where: { id } });
-        } catch (e: any) {
-            if (e.code === 'P2025') throw new NotFoundException(`Task con id ${id} no existe.`);
-            throw e;
-        }
+        return await prisma.word.delete({ where: { id } });
     }
+
     async getWordById(id: number): Promise<Word> {
         if (!id || id <= 0) throw new Error('Id inválido.');
         const task = await prisma.word.findUnique({ where: { id } });
